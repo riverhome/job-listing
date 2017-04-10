@@ -21,6 +21,14 @@ def create
     redirect_to jobs_path
   end
 
+def update
+  @job = Job.find(params[:id])
+  @job.update(job_params)
+  redirect_to jobs_path, notice: "Update Success"
+end
+
+
+
 
 private
 
