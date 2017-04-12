@@ -1,5 +1,13 @@
 class Admin::JobsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :update, :edit, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :update, :edit, :destroy, :index]
+  before_action :require_is_admin
+
+  def require_is_admin
+    if !current_user.admin?
+      redirect_to root_path, alert: "You are not admin"
+    end
+  end
+
 
   def index
     @jobs = Job.all
